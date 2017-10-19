@@ -8,11 +8,10 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.aroraaman.fitbitchallenge.model.Row;
@@ -24,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private ColorsViewModel mViewModel;
+    private ListView mListView;
+    private CommandsAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +32,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mViewModel = ViewModelProviders.of(this).get(ColorsViewModel.class);
+        mListView = findViewById(R.id.commandList);
+
+        mAdapter = new CommandsAdapter(new ArrayList<Row>());
+        mListView.setAdapter(mAdapter);
         
         LiveData<ArrayList<Row>> data = mViewModel.connectSocketAndProcess("", 1234);
 
         data.observe(this, new Observer<ArrayList<Row>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Row> rows) {
-                if (rows == null) {
+                    if (rows == null) {
                     return;
                 }
 
-                int size = rows.size();
-                Log.d(TAG, rows.get(size -1).toString());
+                mAdapter.setRows(rows);
             }
         });
     }
@@ -93,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         private void setRows(ArrayList<Row> rows) {
             mRows = rows;
+            notifyDataSetChanged();
         }
     }
 

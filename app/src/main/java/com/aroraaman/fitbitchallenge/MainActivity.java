@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -32,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mViewModel = ViewModelProviders.of(this).get(ColorsViewModel.class);
-        mListView = findViewById(R.id.commandList);
+        mViewModel.setMainThreadHandler(new Handler());
 
+        mListView = findViewById(R.id.commandList);
         mAdapter = new CommandsAdapter(new ArrayList<Row>());
         mListView.setAdapter(mAdapter);
         

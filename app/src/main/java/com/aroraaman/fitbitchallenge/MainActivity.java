@@ -3,7 +3,6 @@ package com.aroraaman.fitbitchallenge;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -92,9 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
             holder.mTextView.setText(row.toString());
 
-            int color = Color.rgb(row.fRValue, row.fGValue, row.fBValue);
-            holder.mTextView.setBackground(new ColorDrawable(color));
-            holder.mTextView.setTextColor(mViewModel.calcTextColor(row.fRValue, row.fGValue, row.fBValue));
+            holder.mTextView.setBackground(new ColorDrawable(mViewModel.getBackgroundColor(row)));
+            holder.mTextView.setTextColor(mViewModel.calcTextColor(row));
 
             return view;
         }

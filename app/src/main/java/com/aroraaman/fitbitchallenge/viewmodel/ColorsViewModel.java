@@ -40,9 +40,17 @@ public class ColorsViewModel extends ViewModel {
         return data;
     }
 
+    @ColorInt
+    public int getBackgroundColor(Row row) {
+        return Color.rgb(row.fRValue, row.fGValue, row.fBValue);
+    }
+
     // Ref: https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
     @ColorInt
-    public int calcTextColor(int r, int g, int b) {
+    public int calcTextColor(Row row) {
+        int r = row.fRValue;
+        int g = row.fGValue;
+        int b = row.fBValue;
         // Counting the perceptive luminance - human eye favors green color...
         double a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
 

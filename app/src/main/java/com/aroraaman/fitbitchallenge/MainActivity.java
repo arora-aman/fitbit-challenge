@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         mAdapter = new CommandsAdapter(new ArrayList<Row>());
         mListView.setAdapter(mAdapter);
         
-        LiveData<ArrayList<Row>> data = mViewModel.connectSocketAndProcess("", 1234);
+        LiveData<ArrayList<Row>> data = mViewModel.connectSocketAndProcess("", 1234); // ViewModel will pick default values since host is missing
 
         data.observe(this, new Observer<ArrayList<Row>>() {
             @Override

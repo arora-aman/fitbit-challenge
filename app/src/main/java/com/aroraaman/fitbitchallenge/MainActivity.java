@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 mAdapter.setRows(rows);
+                mListView.setSelection(mAdapter.getCount() -1);
             }
         });
     }

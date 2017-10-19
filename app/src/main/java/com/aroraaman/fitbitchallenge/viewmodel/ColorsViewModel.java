@@ -3,7 +3,9 @@ package com.aroraaman.fitbitchallenge.viewmodel;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.graphics.Color;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
 
 import com.aroraaman.fitbitchallenge.model.Command;
 import com.aroraaman.fitbitchallenge.model.Row;
@@ -38,6 +40,17 @@ public class ColorsViewModel extends ViewModel {
         return data;
     }
 
+    // Ref: https://stackoverflow.com/questions/1855884/determine-font-color-based-on-background-color
+    @ColorInt
+    public int calcTextColor(int r, int g, int b) {
+        // Counting the perceptive luminance - human eye favors green color...
+        double a = 1 - (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+
+        // bright colors - black font
+        // dark colors - white font
+
+        return a < 0.5 ? Color.BLACK : Color.WHITE;
+    }
 
     private class BytesProcessedCallback implements SocketAsyncTask.OnBytesCallback {
 

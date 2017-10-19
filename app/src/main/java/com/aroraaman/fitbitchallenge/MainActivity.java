@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
             int color = Color.rgb(row.fRValue, row.fGValue, row.fBValue);
             holder.mTextView.setBackground(new ColorDrawable(color));
+            holder.mTextView.setTextColor(mViewModel.calcTextColor(row.fRValue, row.fGValue, row.fBValue));
 
             return view;
         }
